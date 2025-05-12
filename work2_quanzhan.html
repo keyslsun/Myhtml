@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goat 全栈</title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+
+    body{
+      height: 1500px;
+    }
+    .shell{
+      width:100%;
+      display: flex;
+      flex-direction: column;
+    }
+    header{
+      width: 100%;
+      height: 700px;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+    }
+    .img{
+      width: 100%;
+      height: 100%;
+      background: url('./q1.jpg');
+      background-size: cover;
+      transition: transform 0.5s ease;
+    }
+    .main{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 100px;
+      align-items: normal;
+      justify-content: space-between;
+    }
+    .main h2{
+      font-size: 40px;
+      margin-bottom: 40px;
+      width: 30%;
+      max-width: 1200px;
+      align-self: auto;  /* 新增：强制左对齐 */
+      padding-left: 0;  /* 新增（可选，增加左侧间距）*/
+    }
+    .main div{
+      display: flex;
+      position: relative;
+      width: 100%;
+      height: 30px;
+      justify-content: space-evenly;
+      gap: 20px;
+    }
+    .main img{
+      width: 85%;
+      margin : 0 auto;
+      align-self: center;
+      margin-bottom: 20px;
+    }
+    </style>
+  </head>
+  <body>
+  <div class="shell">
+    <header>
+      <div class="img"></div>
+    </header>
+      <div class="main">
+        <h2>Goat 什么是全栈?</h2>
+        <img src="./q2.jpg" alt="">
+        <div class="content">​​全栈开发​​是贯通应用开发全流程的能力集合，覆盖前端交互、后端逻辑、数据存储及系统部署等环节。</div>
+        <div class="content">​​全栈工程师​​具备从界面设计到服务器运维的完整技术视野，能独立完成原型到产品的技术闭环。</div>
+        <div class="content">核心价值​​在于系统性思维：既掌握各层技术栈的深度实现，又理解模块间的协同逻辑，最终实现高效的技术方案整合。</div>
+      </div>
+  </div>
+  </body>
+  <script>
+    const header = document.querySelector('header');
+    const img = document.querySelector('.img');
+    let scrollDistance = 0;
+    let requestId = null;
+
+    function updateHeaderClipPath() {
+      const clipPercentage = scrollDistance <= 600 
+        ? 100 - (scrollDistance / 600 * 60) 
+        : 75;
+      const clipPathValue = `polygon(0 0, 100% 0%, 100% ${clipPercentage}%, 0 100%)`;
+      header.style.clipPath = clipPathValue;
+      
+      const scaleValue = 1 + (scrollDistance / 600);
+      img.style.transform = `scale(${scaleValue})`;
+      
+      // opacityValue 已计算但未使用，保留但不影响功能
+      const opacityValue = scrollDistance / 600;
+    }
+
+    function handleScroll(event) {
+      if(event.deltaY < 0){
+        scrollDistance = Math.max(0, scrollDistance + event.deltaY);
+      } else {
+        scrollDistance = Math.min(600, scrollDistance + event.deltaY);
+      }
+
+      if (!requestId) {
+        requestId = window.requestAnimationFrame(() => {
+          updateHeaderClipPath();
+          requestId = null;
+        });
+      }
+    }
+
+    window.addEventListener('wheel', handleScroll);
+  </script>
+</html>

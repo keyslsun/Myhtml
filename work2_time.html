@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Goat - 时光</title>
+    <style>
+        /* 全局样式 */
+    body,ul,li,a{
+    margin: 0px;
+    padding: 0px;
+    list-style:none;
+    text-decoration:none;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+        overflow : auto;
+        }
+
+        body {
+            display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+            background-image: url('./background.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            width : 100vw;
+            transform-style: preserve-3d;
+            overflow-y : hidden;
+            perspective : 100px;
+
+        }
+        /* 导航栏 */
+        nav {
+            position : fixed;
+            top: 0;
+            width: 85%;
+            height: 80px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #3399cc, #2c87b4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav li:nth-child(4) a {
+            font-family: "楷体", serif;
+            color: #cccc00;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        /*轮播旋转*/
+        .shell{
+          position: relative;
+          width: 70vw;
+          height: 50vw;
+          max-width: 400px;
+          max-height: 350px;
+          margin: 0;
+          color: white;
+          perspective: 1000px;
+          transform-origin: center;
+        }
+        .content{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transform-origin: center;
+          transform-style: preserve-3d;
+          transform: translateZ(-40vw) rotateY(0);
+ animation: carousel 9s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+        .item{
+          position: absolute;
+          width: 70vw;
+          height: 50vw;
+          max-width: 400px;
+          max-height: 350px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+          border-radius: 6px;
+          background-size: cover;
+          -webkit-box-reflect: below 25px -webkit-linear-gradient(transparent 50%, rgba(255, 255, 255, 0.3));
+        }
+        .item:nth-child(1){
+          background-image: url('https://news.jnu.edu.cn/pic/202312/06/7cd18912-6892-4cc3-8975-4754cc5135ab.jpg');
+          transform: rotateY(0) translateZ(40vw);
+        }
+        .item:nth-child(2){
+          background-image: url('http://img1.baidu.com/it/u=2140367548,1343813786&fm=253&app=138&f=JPEG?w=800&h=1066');
+          transform: rotateY(120deg) translateZ(40vw);
+        }
+        .item:nth-child(3){
+          background-image: url('https://img1.baidu.com/it/u=2395885349,2686799076&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=800');
+          transform: rotateY(240deg) translateZ(40vw);
+        }
+
+
+        @keyframes carousel { /* 原carouseL改为carousel */
+        0%,
+        17.5%{
+            transform: translateZ(-40vw) rotateY(0); /* 修正3: 添加缺失的vw单位 */
+        }
+        27.5%,
+        45%{
+            transform: translateZ(-40vw) rotateY(-120deg);
+        }
+        55%,
+        72.5%{
+            transform: translateZ(-40vw) rotateY(-240deg);
+        }
+        82.5%,
+        100%{
+            transform: translateZ(-40vw) rotateY(-360deg);
+        }
+        }
+    </style>
+</head>
+<body>
+    <!--搜索栏-->
+    <nav>
+        <ul>
+            <li><a href="./work2.html">最初</a></li>
+            <li><a href="./work2_learning.html">心得</a></li>
+            <li><a href="./work2_time.html">时光</a></li>
+            <li><a href="./work2_goat.html">Goat</a></li>
+            <li><a href="./work2_video.html">视频</a></li>
+            <li><a href="./work2_self.html">关于</a></li>
+            <li><a href="./work2_statement.html">声明</a></li>
+        </ul>
+    </nav>
+
+    <div class="shell">
+      <div class="content">
+        <div class="item"><h1>入学</h1></div>
+        <div class="item"><h1>大一摆烂</h1></div>
+        <div class="item"><h1>大二学习</h1></div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Goat - 视觉优化版</title>
+    <style>
+        /* 全局样式 */
+    body,ul,li,a{
+    margin: 0px;
+    padding: 0px;
+    list-style:none;
+    text-decoration:none;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+        overflow : auto;
+        }
+
+        body {
+            background-image: url('./background.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            width : 100vw;
+            transform-style: preserve-3d;
+            overflow-y : auto;
+            perspective : 100px;
+
+        }
+
+        /* 固定顶部 */
+        header {
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .top {
+            width: 85%;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .top ul {
+            font-size: 2.8rem;
+            color: white;
+            font-family: "楷体", serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* 导航栏 */
+        nav {
+            top: 150px;
+            z-index: 100;
+            width: 85%;
+            height: 80px;
+            margin: 20px auto;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #3399cc, #2c87b4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav li:nth-child(4) a {
+            font-family: "楷体", serif;
+            color: #cccc00;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 主内容区 */
+        main {
+            width: 85%;
+            height: calc(100vh - 270px); /* 动态高度计算 */
+            margin: 0 auto;
+            padding: 30px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 画廊容器 */
+        .gallery-container {
+            display: grid;
+            gap: 2.5rem;
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
+            padding: 20px;
+        }
+
+        /* 列样式 */
+        .gallery-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+
+        /* 奇数列动画 */
+        .gallery-column:nth-child(odd) {
+            animation: scroll-effect 60s linear infinite;
+        }
+
+        @keyframes scroll-effect {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 100vh - 270px)); }
+        }
+
+        /* 图片卡片 */
+        .gallery-column img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .gallery-column img:hover {
+            transform: 
+                scale(1.03) 
+                rotateZ(1deg) 
+                translateZ(20px);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 自定义滚动条 */
+        .gallery-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #3399cc, #236B8E);
+            border-radius: 10px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top ul { font-size: 2rem; }
+            nav a { font-size: 1rem; }
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+            .gallery-column img {
+                height: 350px;
+            }
+        }
+  /*视差样式*/
+        /* 新增局部视差容器样式 */
+
+        .local-parallax {
+            position: relative;
+            width: 78%;
+            height: 70vh;
+            margin: 40px auto;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 
+                0 12px 35px rgba(0,0,0,0.25),
+                inset 0 0 0 1px rgba(255,255,255,0.1);
+            background: linear-gradient(45deg, 
+                rgba(50,50,50,0.1) 0%, 
+                rgba(30,30,30,0.2) 100%);
+        }
+
+        .parallax-viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;  /* IE */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .parallax-viewport::-webkit-scrollbar { width: 0; }
+        /* 调整后的视差项 */
+        .parallax-item {
+            position: relative;
+            height: 85vh;
+            min-height: 480px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: -10%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            z-index: 1;
+            transform: translateZ(0);
+            will-change: transform;
+            transition: transform 0.3s ease-out;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        .parallax-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            max-width: 680px;
+            padding: 25px 35px;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transform: translateZ(30px);
+            margin: 10px;
+        }
+
+        .text-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+            letter-spacing: 0.8px;
+        }
+
+        .text-desc {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .local-parallax {
+                width: 92%;
+                height: 65vh;
+                margin: 25px auto;
+            }
+            
+            .parallax-item {
+                height: 75vh;
+                min-height: 400px;
+                margin: 10px 0;
+            }
+            
+            .parallax-content {
+                padding: 20px;
+                margin: 5px;
+            }
+            
+            .text-title { font-size: 1.8rem; }
+            .text-desc { font-size: 1.1rem; }
+        }
+    /*横栏*/
+    span{
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+    }
+    span>h2{
+            width: 85%;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            background-color : #4c8dae;
+            font-size: 50px;
+            font-family : "kaiti";
+    }
+      /*悬停卡片*/
+        .shell{
+            position: relative;
+            min-width: 1000px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            transform-style: preserve-3d;
+            perspective: 900px; 
+            margin: 50px auto;
+        }
+        .shell > .box{
+            position: relative;
+            width: 250px;
+            height: 350px;
+            transition: .3s;
+            overflow: hidden;
+            margin: 30px;
+            transform: rotateY(0);
+            transition-delay: .1s;
+            border-radius: 5px;
+        }
+        .shell > .box .images a {
+            display: block;
+            position: relative;
+            z-index: 1; /* 确保链接在底层 */
+        }
+
+        .shell > .box .content {
+            pointer-events: none; /* 允许穿透点击 */
+        }
+
+        .shell > .box .content > * {
+            pointer-events: auto; /* 文字保留交互 */
+        }
+        .shell > .box .images a img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .shell:hover > .box{
+            transform: rotateY(2deg);
+        }
+        .shell > .box:hover{
+            transform: rotateY(0deg) scale(1.25);
+            box-shadow: 0 25px 40px rgba(0,0,0,.7);
+            z-index: 1;
+        }
+        .shell > .box:hover ~ .box{
+            transform: rotateY(-2deg);
+        }
+        .shell > .box .content{
+            position: absolute;
+            top: 0;
+            width: 90%;
+            height: 100%;
+            z-index: 999;
+            padding: 15px;
+        }
+        .shell > .box .content h2{
+            color: #fff;
+            transition: .3s;
+            font-size: 20px;
+            transform: translateY(-100px);
+        }
+        .shell > .box:hover .content h2{
+            transform: translateY(-15px);
+        }
+        .shell > .box .content p{
+            color: #000;
+            transition: .3s;
+            font-size: 14px;
+            transform: translateY(600px);
+            background-color: rgba(255,255,255,.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .shell > .box:hover .content p{
+            transform: translateY(220px);
+        } 
+        /* 新增悬停卡片响应式代码 */
+
+        @media (max-width: 1200px) {
+            .shell {
+                min-width: 800px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .shell {
+                min-width: 90%;
+                padding: 0 20px;
+            }
+            .shell > .box {
+                width: 220px;
+                height: 320px;
+                margin: 20px;
+            }
+            .shell > .box .content h2 {
+                font-size: 18px;
+                transform: translateY(-80px);
+            }
+            .shell > .box:hover .content h2 {
+                transform: translateY(-10px);
+            }
+            .shell > .box .content p {
+                font-size: 12px;
+                transform: translateY(500px);
+            }
+            .shell > .box:hover .content p {
+                transform: translateY(180px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shell {
+                min-width: 100%;
+                padding: 0 10px;
+                perspective: 500px;
+            }
+            .shell > .box {
+                width: 80%;
+                height: 300px;
+                margin: 15px auto;
+                transform: rotateY(0) !important;
+            }
+            .shell > .box:hover {
+                transform: scale(1.1) !important;
+            }
+            .shell > .box:hover ~ .box {
+                transform: none !important;
+            }
+            .shell > .box .content {
+                padding: 10px;
+            }
+            .shell > .box .content h2 {
+                font-size: 16px;
+                transform: translateY(-60px) !important;
+            }
+            .shell > .box .content p {
+                font-size: 12px;
+                transform: translateY(400px) !important;
+                max-width: 90%;
+            }
+            .shell > .box:hover .content p {
+                transform: translateY(150px) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .shell > .box {
+                width: 95%;
+                height: 250px;
+            }
+            .shell > .box .content h2 {
+                font-size: 14px;
+            }
+            .shell > .box .content p {
+                font-size: 11px;
+            }
+        }
+    /*滑动卡片*/
+     .a {
+        position: relative;
+        width: 700px;
+        height: 400px;
+        background-color: rgb(120,140,200);
+        margin: 120px auto 100px; /* 修改居中方式 */
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .b{
+      position: absolute;
+      width : 200px;
+      height : 300px;
+      left : 0;
+      margin : 75px 50px;
+      transition : 1s;
+    }
+    .b a{
+      text-decoration: none;
+      color: #fff;
+      font: 900 28px '';
+    }
+    .b h2{
+      /*鼠标放开时的动画，第一个值是动画的过渡时间第二值是延迟这一秒后执行动画*/
+      transition :.5s 1s;
+      opacity: 0;
+      color: rgb(30,210,200);
+    }
+    .b span{
+      transition : .5s 1s;
+      color: #fff;
+      font: 500 15px '';
+      position: absolute;
+      top: 70px;
+    }
+    .c{
+      position : absolute;
+      top: -130px;
+      right: -240px;
+    }
+    .d,.e{
+      position:absolute;
+      right: calc(ver(--i)*100px);
+      right: calc(ver(--w)*40px);
+      height: 500px;
+      overflow: hidden;
+      border-radius: 100px;
+      transform: rotateZ(220deg) translate(0,0);
+      background: rgb(240,220,150);
+      transition: .5s .5s;
+    }
+    .d:nth-child(2){
+      background: rgb(240,190,230);
+    }
+    .e{
+      left: -470px;
+      top: -140px;
+      width: 70px;
+      background-color: rgb(90,220,150);
+    }
+    .a:hover .c div{
+    /*设置传送动画*/
+      transition: .5s calc(var(--i)*.1s);
+    /*移动的轨迹*/
+      transform: rotateZ(220deg) translate(-200px,400px);
+    }
+    .a:hover .b{
+      transition: 1s .5s;
+      left: 370px;
+    }
+    .a:hover .b span{
+      transition : 1s .5s;
+      top: 105px;
+    }
+    .a:hover .b h2{
+      transition: 1s .5s;
+      opacity: 1;
+    }
+    .f{
+      width: 250px;
+      height: 250px;
+      position: absolute;
+      background-image: url('./wx.jpg'); /* 使用相对路径 */
+      background-size: cover;
+      margin: 70px;
+      opacity: 0;
+      transition: .5s;
+    }
+    .a:hover .f{
+      transition: 1s 1.3s;
+      opacity: 1;
+    }
+    </style>
+       <script>
+        // 局部视差滚动控制
+        document.addEventListener('DOMContentLoaded', () => {
+            const parallaxContainer = document.querySelector('.parallax-viewport');
+            const parallaxItems = document.querySelectorAll('.parallax-item');
+
+            // 使用requestAnimationFrame优化性能
+            let isScrolling = false;
+            
+            parallaxContainer.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        updateParallax();
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            });
+
+            function updateParallax() {
+                const containerTop = parallaxContainer.getBoundingClientRect().top;
+                const scrollPos = parallaxContainer.scrollTop;
+
+                parallaxItems.forEach(item => {
+                    const bg = item.querySelector('.parallax-bg');
+                    const itemTop = item.offsetTop;
+                    const progress = (scrollPos - (itemTop - containerTop)) / item.offsetHeight;
+                    
+                    // 视差速度系数 (0.3-0.6之间效果最佳)
+                    const speed = 0.4;
+                    const yPos = -(progress * item.offsetHeight * speed);
+                    
+                    if(bg) {
+                        bg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                    }
+                });
+            }
+
+            // 初始化时更新一次
+            updateParallax();
+        });
+    </script>
+</head>
+<body>
+    <!--顶部-->
+    <header>
+        <div class="top">
+            <ul>无人问津的日子，正是登峰造极的好时机</ul>
+        </div>
+    </header>
+    <!--搜索栏-->
+    <nav>
+        <ul>
+            <li><a href="./work2.html">最初</a></li>
+            <li><a href="./work2_learning.html">心得</a></li>
+            <li><a href="./work2_time.html">时光</a></li>
+            <li><a href="./work2_goat.html">Goat</a></li>
+            <li><a href="./work2_video.html">视频</a></li>
+            <li><a href="./work2_self.html">关于</a></li>
+            <li><a href="./work2_statement.html">声明</a></li>
+        </ul>
+    </nav>
+    <!--滑动相册-->
+    <main>
+        <div class="gallery-container">
+            <div class="gallery-column">
+                <img src="./garrey1-1.webp" alt="图片1">
+                <img src="./garrey1-2.webp" alt="图片2">
+                <img src="./garrey1-3.webp" alt="图片3">
+            </div>
+            <div class="gallery-column">
+                <img src="./garrey2.png@h_1280" alt="图片4">
+                <img src="./garrey2.png@h_1280" alt="图片5">
+                <img src="./garrey2.png@h_1280" alt="图片6">
+            </div>
+            <div class="gallery-column">
+                <img src="./garrey3-1.png" alt="图片7">
+                <img src="./garrey3-2.webp" alt="图片8">
+                <img src="./garrey3-3.jfif" alt="图片9">
+            </div>
+        </div>
+    </main>
+    <!--滑动视差-->
+        <div class="local-parallax">
+              <div class="parallax-viewport">
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax1.jpeg">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-八月长安-</h2>
+                    <p class="text-desc">不是所有的坚持都会有结果，但总有一些坚持，能从一寸冰封的土地里，培育出十万朵怒放的蔷薇。</p>
+                </div>
+            </section>
+
+            <!-- 其他视差项保持相同结构 -->
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax2.png">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-尼采-</h2>
+                    <p class="text-desc">一个人知道自己为什么而活，就可以忍受任何生活。</p>
+                </div>
+            </section>
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax3.png">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-尼采-</h2>
+                    <p class="text-desc">每一个不曾起舞的日子，都是对生命的辜负。</p>
+                </div>
+            </section>
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax4.jpg">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-康德-</h2>
+                    <p class="text-desc">自由不是你想做什么，就做什么，而是你不想做什么，就不做什么。</p>
+                </div>
+            </section>
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax5.jpeg">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-泰戈尔-</h2>
+                    <p class="text-desc">屋子里的小灯熄灭了，但我不畏惧黑暗，因为总有群星在天上。</p>
+                </div>
+            </section>
+            <section class="parallax-item">
+                <div class="parallax-bg">
+                    <img src="./parallax6.jpg">
+                </div>
+                <div class="parallax-content">
+                    <h2 class="text-title">-《月亮与六便士》-</h2>
+                    <p class="text-desc">你要克服的是你的虚荣心，是你的炫耀欲，你要对付的是你的时刻想要冲出来耍风头的小聪明。</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!--横栏-->
+    <span><h2 style="color : white"> Hi Mr.Dawson </h2></span>
+    <!--漂浮卡片导航-->
+    <div class="shell">
+       <div class="box">
+         <div class="images">
+           <a href="./work2_skl.html" target="_blank"><img src="./card1.jfif" alt=""></a>
+            <div class="content">
+              <h2>必要技能</h2>
+              <p>以全栈为就业方向，需要掌握的技能罗列在此。</p>
+            </div>
+         </div>
+       </div>
+       <div class="box">
+         <div class="images">
+           <a href="./work2_plan.html" target="_blank"><img src="./card2.jfif" alt=""></a>
+            <div class="content">
+              <h2>学习计划</h2>
+              <p>未来几年的学习规划。</p>
+            </div>
+         </div>
+       </div>
+       <div class="box">
+         <div class="images">
+           <a href="https://baike.baidu.com/item/%E5%BD%AD%E4%BA%8E%E6%99%8F?fromModule=lemma_search-box"><img src="./card3.jfif" alt=""></a>
+            <div class="content">
+              <h2>我</h2>
+              <p>我可以指我、自己，汉字笔划有7画。</p>
+            </div>
+         </div>
+       </div>
+       <div class="box">
+         <div class="images">
+           <a href="./work2_daily.html" target="_blank"><img src="./card4.png" alt=""></a>
+            <div class="content">
+              <h2>日程</h2>
+              <p>每天的时间安排，日程规划。</p>
+            </div>
+         </div>
+       </div>
+       <div class="box">
+         <div class="images">
+           <a href="./work2_quanzhan.html" target="_blank"><img src="./card5.jpg" ></a>
+            <div class="content">
+              <h2>全栈</h2>
+              <p>什么是全栈，全栈能做什么。</p>
+            </div>
+         </div>
+       </div>
+    </div>
+    <!--名片-->
+    <div class="a">
+      <div class="b">
+        <a href="#">道森之家</a>
+        <h2>WX:Keyslsun</h2>
+        <span>I am a full-stack newbie, mastering the basics of HTML/CSS/JS,<br>and unlocking the Node.js/Python+MySQL/MongoDB skill tree🌱 </span>
+      </div>
+      <div class="c">
+        <!--i是用来计算平面圆柱的动作延迟和距离的，w则是用来计算平面圆柱的宽度-->
+        <div class="d" style="--i:1;--w:1.5"></div>
+        <div class="d" style="--i:2;--w:1.6"></div>
+        <div class="d" style="--i:3;--w:1.4"></div>
+        <div class="d" style="--i:4;--w:1.7"></div>
+        <div class="e" style="--i:1"></div>
+      </div>
+      <!--设置二维码-->
+      <div class="f"></div>
+    </div>
+</body>
+</html>

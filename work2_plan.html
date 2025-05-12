@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goat 学习计划</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <style>
+    *{
+       padding: 0;
+      margin: 0;
+    }
+    .shell{
+      height: 100vh;
+      overflow-x: hidden;
+      perspective: 3px;
+    }
+    .shell div{
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: 30px;
+      letter-spacing: 2px;
+    }
+    .image{
+      transform: translateZ(-1px) scale(1.6);
+      background-size: cover;
+      height: 100vh;
+      z-index: -1;
+    }
+    .text{
+      height: 50vh;
+      background-color: #ffffff;
+    }
+    .text h1{
+      color: #000;
+    }
+    .heading{
+      z-index: -1;
+      transform: translateY(-30vh) translateZ(1px);
+      color: #fff;
+      fonti-size: 30px;
+    }
+  </style>
+
+  <body>
+    <div class="shell">
+      <div class="image" style="background-image : url('./plan1.jpg')"></div>
+      <div class="heading">
+        <h1>大二下:三个月掌握前端基础+编程思维</h1>
+      </div>
+      <div class="text">
+        <h1>Html/Css：学会用语义化标签搭建页面，掌握Flex/Grid布局实现响应式。<br>
+        Javascript:重点掌握ES6语法，DOM操作,事件循环，Promise。<br>
+        编程思维训练:Leetcode每天一道简单题（字符串，数组）。学会提交代码到Github，搭建个人仓库。</h1>
+      </div>
+      <div class="image" style="background-image : url('./plan2.jpg')"></div>
+      <div class="heading">
+        <h1>大三上:主攻前端框架+后端+数据库</h1>
+      </div>
+      <div class="text">
+        <h1>前端框架：熟练使用Vue，掌握组件化开发、路由、状态管理。<br>
+        后端开发：掌握Node.js+Express，实现用户注册/登录、数据CRUD。<br>
+        数据库:MySQL掌握SQL语句、事务、索引优化；MongoDB:基础CRUD操作。</h1>
+      </div>
+      <div class="image" style="background-image : url('./plan3.jpg')"></div>
+      <div class="heading">
+        <h1>大三下:掌握全栈开发+开发运维</h1>
+      </div>
+      <div class="text">
+        <h1>全栈项目升级：为电商平台添加进阶功能（支付模块、实时聊天、性能优化）。<br>
+        DevOps基础:Docker容器化部署；Nginx配置反向代理。<br>
+        补充技能：Javascript为项目添加类型检查；用Jest/Mocha编写测试用例。</h1>
+      </div>
+      <div class="image" style="background-image : url('./plan4.jpg')"></div>
+      <div class="heading">
+        <h1>大四：最后阶段</h1>
+      </div>
+      <div class="text">
+        <h1><br><br>八股文复习:重点复习计算机网络（HTTP/TCP三次握手）、操作系统（进程/线程、内存管理）、前端框架原理（虚拟DOM、HOOKS实现）。<br>
+       系统设计:学习设计典型系统(短链服务、秒杀系统)；项目复盘，用STAR法则描述电商平台难点和解决方案。<br>
+        简历重点:完成2-3个全栈项目(技术栈+用户量/性能数据)。</h1>
+      </div>
+    </div>
+  
+  </body>
+</html>

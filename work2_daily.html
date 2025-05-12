@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goat Daily</title>
+    <style>
+      * { padding: 0; margin: 0; }
+      body{ background-color: black; }
+      .shell{
+          width:100%;
+          height:100vh;
+          overflow: visible;
+          position: relative;
+      }
+      .page{
+        transform: translateX(-110%);
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        transition: .5s;
+        background-size: cover;
+        background-position: center;
+        overflow: visible;
+      }
+      .button{
+        display: block;
+        width: 10%;
+        color: #fff;
+        font-size: 30px;
+        border-bottom: #fff solid 4px;
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        margin: 50px;
+        left: calc(50% + (var(--i)*17%));
+        z-index: 999;
+        transition: .3s;
+      }
+      .page_content{
+        box-sizing: border-box;
+        height: 100%;
+        padding: 80px;
+        color: #333;
+        position: absolute;
+        left: 100%;
+        width: 50vw;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        opacity: 0;
+        display: none;
+      }
+      @keyframes fade{
+        0% { opacity: 0; }
+        50% { opacity: 0; transform: translateY(-50px); }
+        100% { opacity: 1; transform: translateY(0px); } 
+      }
+      input { display: none; }
+
+      /* 背景色控制 */
+      #button1:checked + .page .page_content {
+        background-color: #33cc99; /* 淡蓝色 */
+      }
+      #button2:checked + .page .page_content {
+        background-color: rgba(25, 144, 255, 0.95); /* 蔚蓝色 */
+      }
+      #button3:checked + .page .page_content {
+        background-color: #3300CC; /* 深蓝色 
+        color: #fff; /* 深色背景配浅色文字 */
+      }
+      #button3:checked + .page .page_content p,
+      #button3:checked + .page .page_content span {
+        color: rgba(255,255,255,0.9);
+      }
+
+      /* 其他保持原有样式 */
+      #button1:checked + .page,
+      #button2:checked + .page,
+      #button3:checked + .page {
+        transform: translateX(0);
+        z-index: 2;
+      }
+      #button1:checked + .page .page_content,
+      #button2:checked + .page .page_content,
+      #button3:checked + .page .page_content {
+        display: block;
+        animation: fade 1s forwards;
+      }
+      #button1:checked + .page { background-image: url('./d1.jpg'); }
+      #button2:checked + .page { background-image: url('./d2.jpg'); }
+      #button3:checked + .page { 
+        background-image: url('./d3.jpg');
+      }
+      .page h1{ font-size: 70px; color: #fff; }
+      .page p{
+          font-size: 30px;
+          padding: 15px;
+          background-color: rgba(0,0,0,0.08);
+          border-radius: 10px;
+          margin: 30px 0;
+          color: #fff;
+      }
+      .page span{ font-size: 26px; letter-spacing: 2px; color: #fff; }
+      label:hover{ cursor: pointer; border-bottom: solid 4px rgb(35,35,35); }
+    </style>
+  </head>
+  <body>
+    <!-- 保持原有HTML结构不变 -->
+    <div class="shell">
+      <label for="button1" class="button" style="--i:0">上午</label>
+      <input type="radio" id="button1" name="page" checked>
+      <div class="page">
+        <div class="page_content">
+          <h1>上午</h1>
+          <p>晨光初照 万物苏醒</p>
+          <span>06:00 - 12:00<br>
+          周一周四有早八上早八，没早八早起健身或者学习代码。
+          </span>
+        </div>
+      </div>
+
+      <label for="button2" class="button" style="--i:1">下午</label>
+      <input type="radio" id="button2" name="page" >
+      <div class="page">
+        <div class="page_content">
+          <h1>下午</h1>
+          <p>午后暖阳 悠然时光</p>
+          <span>12:00 - 17:00<br>
+            午休时间，人是铁饭是钢一顿不吃饿的慌，吃饭半个小时，看视频或者玩游戏放松半小时到一小时。<br>
+            周一、二、五下午有课就上课。<br>
+            没有课,没有作业就学习代码，学习至少3小时。
+          </span>
+
+        </div>
+      </div>
+
+      <label for="button3" class="button" style="--i:2">晚上</label>
+      <input type="radio" id="button3" name="page" >
+      <div class="page">
+        <div class="page_content">
+          <h1>晚上</h1>
+          <p>星河璀璨 夜色温柔</p>
+          <span>17:00 - 23:00<br>
+          晚饭半小时，休息半小时。周一、三有晚课就上晚课。<br>
+          八点去健身房，锻炼1~2小时。学习至少一个小时。
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

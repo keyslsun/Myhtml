@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Goat - 关于</title>
+    <style>
+        /* 全局样式 */
+    body,ul,li,a{
+    margin: 0px;
+    padding: 0px;
+    list-style:none;
+    text-decoration:none;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+        overflow : auto;
+        }
+
+        body {
+            display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+            background-image: url('./background.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            width : 100vw;
+            transform-style: preserve-3d;
+            overflow-y : hidden;
+            perspective : 100px;
+
+        }
+        /* 导航栏 */
+        nav {
+            position : fixed;
+            top: 0;
+            width: 85%;
+            height: 80px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #3399cc, #2c87b4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav li:nth-child(4) a {
+            font-family: "楷体", serif;
+            color: #cccc00;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        /*名片外层容器*/
+        .wrap{
+            position: relative;
+            width: 330px;
+            height: 260px;
+            background-color: rgb(255,255,255);
+            box-shadow: 0 0 10px rgb(0,0,0,.5);
+            overflow: hidden;
+            justify-content: center;
+        }
+        /*上部分容器*/
+        .box-top{
+            position: relative;
+            width: 330px;
+            height: 130px;
+            background-color: rgb(180,180,210);
+            display: flex;
+            justify-content: center;
+            transition: .5s;
+        }
+        .box-top::after{
+            content: '';
+            width: 40px;
+            height: 40px;
+            clip-path: polygon(50% 40%,0 0, 100% 0);
+            background-color: rgb(180,180,210);
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            bottom: -38px;
+            z-index: 999;
+        }
+        .image{
+            position: absolute;
+            top: 20px;
+            width: 90px;
+            height: 90px;
+            background-image: url('./logo.gif');
+            background-size: cover;
+            border: 5px solid rgb(140,140,170);
+            transition: .5s;
+        }
+        /*下部分两个大块*/
+        .box-bottom,.box-bottom2{
+            position: absolute;
+            top: 130px;
+            width: 330px;
+            height: 130px;
+            text-align: center;
+            transition: .5s;
+        }
+        .box-bottom h2{
+            display: block;
+            margin: 30px 0 10px 0;
+            font: 800 28px 'Hobo Std';
+        }
+        .box-bottom span{
+            font: 400 20px 'Giddyup Std';
+        }
+        .box-bottom h2::after{
+            content: '';
+            display: block;
+            width: 200px;
+            height: 2px;
+            background-color: #000;
+            position: absolute;
+            left: 20%;
+            transition:  translate(-50%,4px);
+        }
+        /*下半部分的第二个大块*/
+        .box-bottom2{
+            top: 300px;
+            height: 220px
+        }
+        .box-bottom2 li{
+            margin: 25px;
+            font: 800 20px 'OCR A Std'
+            transition: .2s;
+        }
+        /*鼠标移入的效果*/
+        .wrap:hover .box-top{
+            height: 50px;
+        }
+        .wrap:hover .image{
+          width: 35px;
+          height: 35px;
+          border-width: 3px;
+          transform: translate(-140px,-15px);
+
+        }
+        .wrap:hover .box-bottom{
+          top: 300px;
+        }
+        .wrap:hover .box-bottom2{
+          top: 50px;
+        }
+        li:hover {
+          color: rgb(100,160,160);
+        }
+    </style>
+</head>
+<body>
+    <!--搜索栏-->
+    <nav>
+        <ul>
+            <li><a href="./work2.html">最初</a></li>
+            <li><a href="./work2_learning.html">心得</a></li>
+            <li><a href="./work2_time.html">时光</a></li>
+            <li><a href="./work2_goat.html">Goat</a></li>
+            <li><a href="./work2_video.html">视频</a></li>
+            <li><a href="./work2_self.html">关于</a></li>
+            <li><a href="./work2_statement.html">声明</a></li>
+        </ul>
+    </nav>
+    <div class="wrap">
+      <div class="box-top">
+        <div class="image"></div>
+      </div>
+      <div class="box-bottom">
+        <h2>Goat of Key</h2>
+        <span>This is a personal practice website</span>
+      </div>
+      <div class="box-bottom2">
+        <ul>
+          <li>the front end caveolae of goat</li>
+          <li>QQ: 874562052</li>
+          <li>WX: keyslsun</li>
+          <li>Group: 404</li>
+          <li>Hobby:front end</li>
+        </ul>
+      </div>
+    </div>
+</body>
+</html>

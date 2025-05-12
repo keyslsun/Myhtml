@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Goat - 视觉优化版</title>
+    <style>
+        /* 全局样式 */
+    body,ul,li,a{
+    margin: 0px;
+    padding: 0px;
+    list-style:none;
+    text-decoration:none;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+        overflow : auto;
+        }
+
+        body {
+            background-image: url('./background.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            width : 100vw;
+            transform-style: preserve-3d;
+            overflow-y : auto;
+            perspective : 100px;
+
+        }
+
+        /* 固定顶部 */
+        header {
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .top {
+            width: 85%;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .top ul {
+            font-size: 2.8rem;
+            color: white;
+            font-family: "楷体", serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* 导航栏 */
+        nav {
+            top: 150px;
+            z-index: 100;
+            width: 85%;
+            height: 80px;
+            margin: 20px auto;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #3399cc, #2c87b4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav li:nth-child(4) a {
+            font-family: "楷体", serif;
+            color: #cccc00;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .main {
+          width: 80%;
+          height: 400px;
+          //border: 1px solid red;
+          display: flex;
+          margin: 0 auto;
+          justify-content: space-evenly;
+        }
+        .main .main-left{
+          width: 40%;
+          height: 400px;
+          //border: 1px solid white;
+        }
+        .main .main-left img{
+          width: 100%;
+          height: 400px;
+        }
+        .main .main-right{
+          width: 55%;
+          height: 400px;
+          //border: 1px solid blue;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          padding: 10px;
+        }
+        .main .main-right h1{
+          margin-bottom: 20px;
+          //border: 1px solid pink;
+          font-size: 50px;
+          font-family: 'kaiti';
+          color: #cccccc;
+        }
+        .main .main-right p {
+          margin-top: 10px;
+          //border : 1px solid green;
+          color: #cccccc;
+        }
+</style>
+</head>
+<body>
+    <!--顶部-->
+    <header>
+        <div class="top">
+            <ul>无人问津的日子，正是登峰造极的好时机</ul>
+        </div>
+    </header>
+    <!--搜索栏-->
+    <nav>
+        <ul>
+            <li><a href="./work2.html">最初</a></li>
+            <li><a href="./work2_learning.html">心得</a></li>
+            <li><a href="./work2_time.html">时光</a></li>
+            <li><a href="./work2_goat.html">Goat</a></li>
+            <li><a href="./work2_video.html">视频</a></li>
+            <li><a href="./work2_self.html">关于</a></li>
+            <li><a href="./work2_statement.html">声明</a></li>
+        </ul>
+    </nav>
+    <!--心得模块-->
+    <div class="main">
+      <div class="main-left">
+        <img src="https://tukuimg.bdstatic.com/scrop/675c3bca7cfa707b3349ea43c0c3e917.gif" alt="">
+      </div>
+      <div class="main-right">
+        <h1>学习心得</h1>
+        <p>学无止境，天天向上。<br>
+           早睡早起，锻炼身体。<br>
+           好好吃饭，阳光积极。
+        </p>
+      </div>
+    </div>
+</body>
+</html>

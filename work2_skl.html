@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goat 必要技能</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+            height: 100vh;
+        }
+
+        .main {
+            height: 100vh;
+            perspective: 1200px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .list-container {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .list-item {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: transform;
+        }
+
+        .item-image {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            top: -5%;
+            left: -5%;
+            transform: translateZ(-150px) scale(1.5);
+            filter: brightness(0.85);
+            transition: all 0.6s ease;
+            z-index: 1;
+        }
+
+        .item-image::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .list-item:hover .item-image::before {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .item-text {
+            position: relative;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            transform: translateZ(100px);
+            opacity: 0;
+            transition: all 0.8s ease;
+            z-index: 2;
+            max-width: 800px;
+            padding: 20px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .text-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            transform: translateY(80px);
+            transition: transform 0.6s ease;
+        }
+
+        .text-desc {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            transform: translateY(80px);
+            transition: transform 0.6s ease;
+        }
+
+        .list-item.active {
+            transform: translateZ(0);
+        }
+
+        .list-item.active .item-text {
+            opacity: 1;
+            transform: translateZ(50px);
+        }
+
+        .list-item.active .text-title,
+        .list-item.active .text-desc {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <div class="list-container">
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must1.webp" alt="图片1">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">HTML/CSS</div>
+                    <div class="text-desc">超文本标记语言(HTML)构建网页结构，层叠样式表(CSS)实现视觉设计<br>响应式布局技术适配各种设备屏幕尺寸</div>
+                </div>
+            </section>
+
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must2.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">JavaScript</div>
+                    <div class="text-desc">实现动态交互功能，处理用户操作，控制DOM元素</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must3.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">LeetCode</div>
+                    <div class="text-desc">​​LeetCode​​ 是全球知名的编程练习平台，提供海量算法、数据结构及系统设计题目，帮助开发者提升编程能力，备战技术面试（如 FAANG 等大厂）。支持多种语言，含题解、讨论区和竞赛功能。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must4.webp" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">Github</div>
+                    <div class="text-desc">​​GitHub​​ 是全球最大的代码托管和协作平台，基于 ​​Git​​ 版本控制，支持开发者存储、管理、共享代码，并实现多人协作开发。提供 ​​Issue 追踪​​、​​Pull Request​​、​​CI/CD​​ 等功能，是开源项目和企业的核心工具，拥有庞大的开发者社区。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must5.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">Vue</div>
+                    <div class="text-desc">Vue.js 是由尤雨溪开发的轻量级、渐进式 JavaScript 前端框架，采用响应式数据绑定和组件化设计，支持高效虚拟 DOM 渲染，以简洁的 API 和灵活的集成特性著称，适合快速构建现代化单页应用（SPA）和动态用户界面。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must6.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">Node.js</div>
+                    <div class="text-desc">Node.js 是一个基于Chrome V8 引擎的跨平台 JavaScript 运行时，采用事件驱动和非阻塞 I/O 模型，特别适合构建高性能、高并发的网络应用；凭借强大的 npm 生态系统 和统一的 JavaScript 全栈开发能力，它被广泛应用于 Web 后端、API 服务、实时应用和微服务架构等领域。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must7.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">Java</div>
+                    <div class="text-desc">Java 是一种跨平台、面向对象的高级编程语言，以"一次编写,到处运行"为核心特性（基于 JVM 实现）。具备强类型、自动内存管理（GC）和多线程支持，广泛应用于企业级开发、Android 应用、大数据（如 Hadoop）及后端服务。拥有丰富的生态系统（Spring 等框架）和长期稳定的版本支持。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must8.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">MySQL</div>
+                    <div class="text-desc">MySQL 是一个开源的关系型数据库管理系统（RDBMS），使用 SQL 语言进行数据操作，以高性能、高可靠性和易用性著称。支持多用户、多线程，适用于 Web 应用（如 LAMP 架构）、企业级系统及云端服务，是当前最流行的数据库之一，常与 PHP、Java、Python 等后端语言搭配使用。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must9.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">DevOps</div>
+                    <div class="text-desc">DevOps 是一种结合 开发（Dev） 与 运维（Ops） 的软件交付方法论，旨在通过 自动化工具（如 Docker、Kubernetes、CI/CD） 和 文化协作 实现快速、高质量的持续集成与部署。核心目标包括缩短开发周期、提升部署频率和系统可靠性，广泛应用于云原生和敏捷开发场景。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must10.webp" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">Typescript</div>
+                    <div class="text-desc">TypeScript 是微软开发的 JavaScript 超集，通过添加 静态类型系统 和 高级特性（如接口、泛型、装饰器），提升代码可维护性和开发效率。它编译为标准 JavaScript，兼容所有浏览器和 Node.js，尤其适合大型项目，被 Angular、Vue 3 等框架广泛采用。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must11.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">学习设计典型系统</div>
+                    <div class="text-desc">设计典型系统指构建可复用、高扩展的技术架构，需平衡性能、安全与成本，采用模块化设计（如微服务）、标准化协议（如REST），并适配业务场景（如高并发/实时处理），通常结合DevOps实现持续交付。</div>
+                </div>
+            </section>
+            <section class="list-item">
+                <div class="item-image">
+                    <img src="./must12.jpg" alt="图片2">
+                </div>
+                <div class="item-text">
+                    <div class="text-title">HTTP/TCP</div>
+                    <div class="text-desc">HTTP（超文本传输协议）是应用层协议，用于Web通信（如网页浏览），基于请求-响应模型，无状态但可通过Cookie/Session维持状态。  
+
+TCP（传输控制协议）是传输层协议，提供可靠、面向连接的数据传输（三次握手、流量控制），确保数据有序且不丢失，为HTTP等上层协议提供基础支持。  
+
+关系：HTTP通常运行于TCP之上（如HTTP/1.1/2），HTTPS则基于TCP+TLS加密。</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.list-item');
+            let scrollPos = 0;
+            let lastScroll = 0;
+
+            function updateParallax() {
+                const currentScroll = window.pageYOffset;
+                const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+                
+                items.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const viewportCenter = window.innerHeight / 2;
+                    const itemCenter = rect.top + rect.height / 2;
+                    
+                    // 动态景深效果
+                    const depthFactor = Math.abs(viewportCenter - itemCenter) / viewportCenter;
+                    const parallaxOffset = currentScroll * 0.35 * (scrollDirection === 'down' ? 1 : -1);
+                    
+                    // 图片变换
+                    item.querySelector('.item-image').style.transform = 
+                        `translateZ(-150px) scale(1.5) translateY(${parallaxOffset}px)`;
+
+                    // 激活状态检测
+                    if(rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+
+                    // 动态旋转
+                    const rotateValue = (rect.top - viewportCenter) * 0.015;
+                    item.style.transform = `rotateX(${rotateValue}deg) 
+                                         translateZ(${depthFactor * 50}px)`;
+                });
+
+                lastScroll = currentScroll;
+                requestAnimationFrame(updateParallax);
+            }
+
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateParallax);
+            });
+
+            // 初始化
+            updateParallax();
+            
+            // 窗口尺寸变化重置
+            window.addEventListener('resize', () => {
+                items.forEach(item => {
+                    item.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
